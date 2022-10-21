@@ -18,6 +18,7 @@ public class EmployeeService {
     public void setEmployeeRepository(EmployeeRepository employeeRepo) {
         this.employeeRepo = employeeRepo;
     }
+
     public void addEmployee(Employee employee) {
         employeeRepo.save(employee);
         log.info("Add employee to the database : %s".formatted(employee.toString()));
@@ -27,12 +28,17 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
-    public Employee getEmployee(Employee employee) {
-        return employeeRepo.findById(employee.getId()).orElse(null);
-    }
-
-    public void deleteEmployById(Employee employee) {
+    public void deleteEmployeeById(Employee employee) {
+        log.info("Delete from database : %s".formatted(employee));
         employeeRepo.deleteById(employee.getId());
     }
 
+    public Employee findEmployeeById(Employee employee) {
+        log.info("Found Employee : %s".formatted(employee));
+        return employeeRepo.findById(employee.getId()).orElse(null);
+    }
+
+    public void update(Employee employee) {
+        employeeRepo.save(employee);
+    }
 }

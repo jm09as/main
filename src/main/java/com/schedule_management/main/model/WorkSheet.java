@@ -9,25 +9,25 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @Entity
-public class Employee {
+public class WorkSheet {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @NotNull
     private long id;
-    @Size(max = 100)
-    private String name;
-    @Size(max = 250)
-    private String address;
-    @Size(max = 20)
-    private String profession;
-    private Date birthDay;
-    private int hourlyWage;
-
+    @Size(max = 40)
+    private String sheetName;
+    private Date workDuration;
+    private Date startingWork;
+    private int materialCost;
+    @OneToMany
+    @ToString.Exclude
+    private List<Employee> employees;
 }
