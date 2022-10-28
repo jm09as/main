@@ -20,8 +20,8 @@ public class EmployeeService {
     }
 
     public void addEmployee(Employee employee) {
-        employeeRepo.save(employee);
         log.info("Add employee to the database : %s".formatted(employee.toString()));
+        employeeRepo.save(employee);
     }
 
     public List<Employee> getEmployees() {
@@ -39,6 +39,7 @@ public class EmployeeService {
     }
 
     public void update(Employee employee) {
+        log.info(employee.toString());
         employeeRepo.save(employee);
     }
 }

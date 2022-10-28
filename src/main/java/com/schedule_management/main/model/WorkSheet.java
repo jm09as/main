@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +22,16 @@ public class WorkSheet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @NotNull
-    private long id;
+    private int id;
     @Size(max = 40)
     private String sheetName;
-    private Date workDuration;
+    @Pattern(regexp = "[0-9]+")
+    private String workDuration;
+    @NotNull(message = "... meg kell adnod a munka kezdő napját!")
     private Date startingWork;
+    private Date endWork;
+    private int distanceFromYard;
     private int materialCost;
-    @OneToMany
-    @ToString.Exclude
+    @ManyToMany
     private List<Employee> employees;
 }

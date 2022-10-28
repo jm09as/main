@@ -1,6 +1,0 @@
-INSERT
-INTO
-  employee
-  (name, address, profession)
-VALUES
-  ('Marci', 'Koppl', 'Worker');

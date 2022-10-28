@@ -1,4 +1,17 @@
 <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/header :: header"></div>
 <body>
@@ -8,28 +21,35 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="sheetName">Worksheet Name</label>
-                <input type="text" class="form-control" id="sheetName" th:field="*{sheetname}">
+                <input type="text" class="form-control" id="sheetName" th:field="*{sheetName}">
             </div>
         </div>
-        <div class="form-group">
-            <label for="workDuration">Work Duration</label>
-            <input type="date" class="form-control" id="workDuration">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="distanceFromYard">Distance From Yard</label>
+                <input type="text" class="form-control" id="distanceFromYard" th:field="*{distanceFromYard}">
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
+            <label for="workDuration">Work Duration</label>
+            <input type="text" class="form-control" id="workDuration" th:field="*{workDuration}">
+        </div>
+        <div class="form-group col-md-6">
             <label for="startingWork">Work Starting Date</label>
-            <input type="date" class="form-control" id="startingWork">
+            <input type="date" class="form-control" id="startingWork" th:field="*{startingWork}">
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="materialCost">Material Cost</label>
-                <input type="number" class="form-control" id="materialCost">
+                <input type="number" class="form-control" id="materialCost" th:field="*{materialCost}">
             </div>
-<!--            <div class="form-group col-md-4">-->
-<!--                <label for="inputState">Employee</label>-->
-<!--                <select id="inputState" class="form-control" multiple size="5">-->
-<!--                    <option th:each="empl : ${empl}" th:value="${empl}" th:text="${empl}"></option>-->
-<!--                </select>-->
-<!--            </div>-->
+            <div class="form-group col-md-4">
+                <label for="employ">Employee</label>
+                <select id="employ" class="form-control" multiple size="5" th:field="*{employees}">
+                    <option th:each="employ : ${employ}" th:value="${employ.id}"
+                            th:text="${employ.employeeName}"></option>
+                </select>
+            </div>
         </div>
         <div>
             <br>
@@ -37,6 +57,7 @@
         <button type="submit" class="btn btn-primary" th:text="Create">Sign in</button>
     </form>
 </div>
+<p th:text="${available}"></p>
 
 </body>
 </html>
