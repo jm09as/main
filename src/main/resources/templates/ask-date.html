@@ -3,38 +3,79 @@
 <div th:replace="fragments/header :: header"></div>
 <body>
 <div th:replace="fragments/menu :: menu"></div>
-<div class="container">
-    <form action="#" th:action="@{/}" method="post">
-        <div class="form-group col-md-6">
-            <span class="input-group-text" id="addon-wrapping">Date</span>
-            <input type="date" name="day" th:value="${day}" class="form-control" placeholder="text"
-                   aria-label="Username"
-                   aria-describedby="addon-wrapping">
+<div class="frame">
+    <div class="ask-date1">
+        <div class="container">
+            <form action="#" th:action="@{/}" method="post">
+                <div class="form-group col-md-6">
+                    <span class="input-group-text" id="addon-wrapping">Date</span>
+                    <input type="date" name="day" th:value="${day}" class="form-control" placeholder="text"
+                           aria-label="Username"
+                           aria-describedby="addon-wrapping">
+                </div>
+                <br>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
         <br>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="container">
+            <div class="form-group col-md-6">
+                <span class="input-group-text">In Work</span>
+                <ul th:each="inWorkEmployee : ${inWorkEmployee}" class="list-group">
+                    <li th:text="${inWorkEmployee}" class="list-group-item">An item</li>
+                </ul>
+            </div>
         </div>
-    </form>
-</div>
-<br>
-<div class="container">
-    <div class="form-group col-md-6">
-        <span class="input-group-text">In Work</span>
-        <!--    <label class="inWork" for=>In work</label>-->
-        <ul th:each="inWorkEmployee : ${inWorkEmployee}" class="list-group">
-            <li th:text="${inWorkEmployee}" class="list-group-item">An item</li>
-        </ul>
+        <br>
+        <div class="container">
+            <div class="form-group col-md-6">
+                <span class="input-group-text">Off Work</span>
+                <ul th:each="availableEmployee : ${availableEmployee}" class="list-group">
+                    <li th:text="${availableEmployee}" class="list-group-item">An item</li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-<br>
-<div class="container">
-    <div class="form-group col-md-6">
-        <span class="input-group-text">Off Work</span>
-<!--        <label class="inWork" for=>Off work</label>-->
-        <ul th:each="availableEmployee : ${availableEmployee}" class="list-group">
-            <li th:text="${availableEmployee}" class="list-group-item">An item</li>
-        </ul>
+    <!--    #########################################################################################################-->
+    <div class="ask-date2">
+        <div class="container">
+            <form action="#" th:action="@{/period}" method="post">
+                <div class="form-group col-md-6">
+                    <span class="input-group-text" id="addon">Period Start Day</span>
+                    <input type="date" name="day" th:value="${day}" class="form-control" placeholder="text"
+                           aria-label="Username"
+                           aria-describedby="addon-wrapping">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="workDuration">Work Duration</label>
+                    <input type="number" class="form-control" name="workDuration" id="workDuration" th:value="${workDuration}">
+                </div>
+                <br>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <div class="container">
+            <div class="form-group col-md-6">
+                <span class="input-group-text">In Work</span>
+                <ul th:each="inEmployeePeriod : ${inEmployeePeriod}" class="list-group">
+                    <li th:text="${inEmployeePeriod}" class="list-group-item">An item</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="form-group col-md-6">
+                <span class="input-group-text">Off Work</span>
+                <ul th:each="availableEPeriod : ${availableEPeriod}" class="list-group">
+                    <li th:text="${availableEPeriod}" class="list-group-item">An item</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 </body>

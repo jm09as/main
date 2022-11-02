@@ -1,23 +1,26 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-
-</body>
-</html>
-<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/header :: header"></div>
 <body>
 <div th:replace="fragments/menu :: menu"></div>
 <div class="container">
-    <form action="#" th:action="@{/create/work}" th:object="${workSheet}" method="post">
+    <form action="#" th:action="${workSheet.id} == 0 ? @{/create/work} : @{/update}"
+          th:object="${workSheet}" method="post">
+        <p th:text="${workSheet.id}"></p>
+        <div class="form-group col-md-6">
+            <label for="workDuration">Work Duration</label>
+            <input type="text" class="form-control" id="workDuration" th:field="*{workDuration}">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="startingWork">Work Starting Date</label>
+            <input type="date" class="form-control" id="startingWork" th:field="*{startingWork}">
+            <span class="validatorError" th:if="${#fields.hasErrors('startingWork')}"
+                  th:errors="*{startingWork}"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="endWork">Work End Date</label>
+            <input type="date" class="form-control" id="endWork" th:field="*{endWork}" disabled>
+        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="sheetName">Worksheet Name</label>
@@ -29,14 +32,6 @@
                 <label for="distanceFromYard">Distance From Yard</label>
                 <input type="text" class="form-control" id="distanceFromYard" th:field="*{distanceFromYard}">
             </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="workDuration">Work Duration</label>
-            <input type="text" class="form-control" id="workDuration" th:field="*{workDuration}">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="startingWork">Work Starting Date</label>
-            <input type="date" class="form-control" id="startingWork" th:field="*{startingWork}">
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -54,10 +49,8 @@
         <div>
             <br>
         </div>
-        <button type="submit" class="btn btn-primary" th:text="Create">Sign in</button>
+        <button type="submit" class="btn btn-primary" th:text="${workSheet.id} == 0 ? Create : Update">Sign in</button>
     </form>
 </div>
-<p th:text="${available}"></p>
-
 </body>
 </html>

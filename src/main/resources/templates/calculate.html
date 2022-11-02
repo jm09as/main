@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/menu :: menu"></div>
+<body>
+<div CLASS="container">
+    <form action="#" th:action="@{/create/work}" method="get">
+        <div class="form-group col-md-6">
+            <label for="workDuration">Work Duration</label>
+            <input type="number" class="form-control" name="workDuration" id="workDuration" th:value="${workDuration}">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="startingWork">Work Starting Date</label>
+            <input type="date" class="form-control" name="startingWork" id="startingWork" th:value="${startingWork}">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" th:text="Calculate">Calculate</button>
+    </form>
+</div>
+</body>

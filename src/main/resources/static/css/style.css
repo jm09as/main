@@ -5,6 +5,20 @@
  margin: 15px;
 }
 
-.body {
-background : red;
+.nav-link {
+background : #FFEB0C;
+}
+.frame {
+	width: auto;
+  display: flex;
+  flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.ask-date1 {
+  width: 600px
+}
+.ask-date2 {
+  width: 600px
 }

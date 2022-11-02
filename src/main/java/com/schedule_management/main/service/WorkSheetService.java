@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -30,9 +31,42 @@ public class WorkSheetService {
     }
 
     public List<Employee> getInWorkEmployees(LocalDateTime localDateTime) {
-        List<WorkSheet> all = workSheetRepository.findAll();
-        var sae = new SearchAvailableEmployee(all);
+        var sae = new SearchAvailableEmployee(workSheetRepository.findAllWhereActiveTrue());
         return sae.searchWorker(sae.getEmployeeOnGivenDay(localDateTime));
+    }
+
+    public List<Employee> getEmployeesFromPeriod(WorkSheet workSheet) {
+        workSheet.setEndWork(CalculateEndSheet.getInstance().calculateEnd(workSheet));
+        var sae = new SearchAvailableEmployee(workSheetRepository.findAllWhereActiveTrue());
+        return sae.searchWorker(sae.getEmployeesOnGivenDays(workSheet));
+    }
+
+    public List<WorkSheet> getWorkSheets() {
+        return workSheetRepository.findAll();
+    }
+    public List<WorkSheet> getWorkSheetsWhereActive() {
+        return workSheetRepository.findAllWhereActiveTrue();
+    }
+
+    public List<Employee> getEmployeesOnGivenPeriod(Date date, int number) {
+        var sae = new SearchAvailableEmployee(workSheetRepository.findAllWhereActiveTrue());
+        List<WorkSheet> employeesOnGivenDays = sae.getEmployeesOnGivenDays(date, CalculateEndSheet.getInstance().calculatePeriod(date, number));
+        return sae.searchWorker(employeesOnGivenDays);
+        // TODO make up
+    }
+
+    public WorkSheet getWorkSheetById(WorkSheet workSheet) {
+        return workSheetRepository.findById(workSheet.getId()).orElse(null);
+    }
+
+    public void updateWorksheet(WorkSheet workSheet) {
+        workSheet.setEndWork(CalculateEndSheet.getInstance().calculateEnd(workSheet));
+        System.out.println(workSheet.getSheetName());
+        workSheetRepository.save(workSheet);
+    }
+
+    public WorkSheet findById(WorkSheet workSheet) {
+       return workSheetRepository.findById(workSheet.getId()).orElse(null);
     }
 
 }

@@ -42,7 +42,6 @@ public class EmployeeController {
 
     @GetMapping("/update/{employee}")
     public String updateEmployee(@PathVariable Employee employee, Model model) {
-//        Employee employee1 = employeeService.findEmployeeById(employee);
         model.addAttribute("employee", employeeService.findEmployeeById(employee));
         return "create-employee";
     }

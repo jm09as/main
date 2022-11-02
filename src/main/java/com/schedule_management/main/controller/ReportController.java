@@ -1,7 +1,6 @@
 package com.schedule_management.main.controller;
 
 import com.schedule_management.main.model.Employee;
-import com.schedule_management.main.model.WorkSheet;
 import com.schedule_management.main.service.EmployeeService;
 import com.schedule_management.main.service.WorkSheetService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,41 +21,29 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/")
-public class WorkSheetServiceController {
+public class ReportController {
+
+    @Autowired
     private WorkSheetService workSheetService;
+
+    @Autowired
     private EmployeeService employeeService;
 
-    @Autowired
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
-
-    @Autowired
     public void setWorkSheetService(WorkSheetService workSheetService) {
         this.workSheetService = workSheetService;
     }
 
-    @GetMapping("/create/work")
-    public String createWork(WorkSheet workSheet, Model model) {
-        model.addAttribute("employ", employeeService.getEmployees());
-        return "create_worksheet";
-
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
-    @PostMapping("/create/work")
-    public String addWorkSheet(WorkSheet workSheet, Model model) {
-        workSheetService.addWorkSheet(workSheet);
-        return "redirect:/create";
-    }
-
-    @GetMapping()
+    @GetMapping
     public String employeeOnDate(Model model) {
         model.addAttribute("employee", new ArrayList<String>());
-        System.out.println("most");
         return "ask-date";
     }
 
-    @PostMapping()
+    @PostMapping
     public String askOnDay(Model model, @RequestParam Date day) {
         LocalDateTime givenDay = day.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         List<Employee> inWorkEmployees = workSheetService.getInWorkEmployees(givenDay);
@@ -66,6 +53,16 @@ public class WorkSheetServiceController {
         model.addAttribute("availableEmployee", OffEmployees.stream().map(Employee::getEmployeeName).toList());
         log.info(inWorkEmployees.toString());
         log.info(day.toString());
+        return "ask-date";
+    }
+
+    @PostMapping("/period")
+    public String askPeriod(Model model, @RequestParam Date day, int workDuration) {
+        List<Employee> inWorkEmployees = workSheetService.getEmployeesOnGivenPeriod(day, workDuration);
+        List<Employee> OffEmployees = employeeService.getEmployees();
+        OffEmployees.removeAll(inWorkEmployees);
+        model.addAttribute("inEmployeePeriod", inWorkEmployees.stream().map(Employee::getEmployeeName).toList());
+        model.addAttribute("availableEPeriod", OffEmployees.stream().map(Employee::getEmployeeName).toList());
         return "ask-date";
     }
 

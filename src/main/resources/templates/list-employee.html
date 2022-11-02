@@ -21,13 +21,10 @@
         <th th:text="${employee.id}">1</th>
         <td th:text="${employee.employeeName}">Mark</td>
         <td th:text="${employee.email}">email</td>
-        <td th:text="${#dates.format(employee.birthDay, 'yyyy-MMM-dd')}">2000-12-01</td>
+        <td th:text="${#dates.format(employee.birthDay, 'yyyy.MMMdd')}">2000-12-01</td>
         <td th:text="${employee.profession}">Employee</td>
         <td th:text="${employee.address}">1000 Bécs Hauptstrasse 40./4</td>
-        <td th:text="${#numbers.formatInteger(employee.hourlyWage,3,'POINT')} + Ft">5000</td>
-        <!--            #strings.isEmpty(nullString)-->
-        <!--            "${#numbers.formatDecimal(abc.value, 0, 'COMMA', 2, 'POINT')}"-->
-        <!--            ${#numbers.formatInteger(num,3,'POINT')}-->
+        <td th:text="${#numbers.formatInteger(employee.hourlyWage,3,'POINT')} + _Ft">5000</td>
         <td>
             <a href="#" th:href="@{/create/delete/{id}(id=${employee.id})}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
